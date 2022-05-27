@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -33,6 +34,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired private ConfirmCodeGenerator confirmCodeGenerator;
     @Autowired private UserCodeService userCodeService;
     @Autowired private CodeEnterAttemptService attemptService;
+    @Autowired private PasswordEncoder encoder;
 
     @Override
     public ResponseEntity<?> signIn(SignInRequest signInRequest) {
@@ -62,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
 
             accountService.save(AccountDto.builder()
                     .login(signInRequest.getEmail())
-                    .password(signInRequest.getPassword())
+                    .password(encoder.encode(signInRequest.getPassword()))
                     .user(userDto)
                     .build());
             System.out.println("OK");

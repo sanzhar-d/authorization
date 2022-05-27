@@ -20,6 +20,5 @@ public class CodeEnterAttempt {
     @ManyToOne
     @JoinColumn(name = "user_code_id")
     private UserCode userCode;
-    @Enumerated(EnumType.STRING)
     private Status status;
 }

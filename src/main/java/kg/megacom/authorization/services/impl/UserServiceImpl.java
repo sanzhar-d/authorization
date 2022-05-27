@@ -5,8 +5,12 @@ import kg.megacom.authorization.mappers.UserMapper;
 import kg.megacom.authorization.models.dtos.UserDto;
 import kg.megacom.authorization.models.entities.User;
 import kg.megacom.authorization.services.UserService;
+import kg.megacom.authorization.utils.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,4 +35,6 @@ public class UserServiceImpl implements UserService {
     public UserDto findByEmail(String email) {
         return userMapper.toDto(userDao.findByEmail(email));
     }
+
+
 }
